@@ -1,14 +1,18 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation } from 'framer-motion';
+import { useRecoilState } from 'recoil';
 //components
 import { HLine, VLine } from '../../styled';
-import Flex from '../../layout/Flex';
-import { calculateSale, calculateTotalSumOfProducts } from '../../../utils/calculation.utils';
-import ButtonWithPlusMinus from '../buttons/ButtonWithPlusMinus';
 import Button from '../buttons/Button';
+import Flex from '../../layout/Flex';
+import ButtonWithPlusMinus from '../buttons/ButtonWithPlusMinus';
+//utils
+import { calculateSale, calculateTotalSumOfProducts } from '../../../utils/calculation.utils';
+//atom
+import { rightSidebar } from '../../../recoil/sidebar.atom';
 
 const fakeData = [
   {
@@ -106,32 +110,35 @@ const fakeData = [
 
 const animation = {
   visible: { x: 0 },
-  hidden: { x: 300 }
-}
+  hidden: { x: 300 },
+};
 
 interface Props {}
 
 const RightSidebar: React.FC<Props> = (props) => {
   const controls = useAnimation();
+  const [rSidebar, setRightSidebar] = useRecoilState(rightSidebar);
 
   useEffect(() => {
-    setTimeout(async () => {
+    (async function () {
       try {
-        await controls.start("visible")
-        console.log('done');
+        const sideBarState = rSidebar.isOpen ? 'visible' : 'hidden';
+        await controls.start(sideBarState);
       } catch (err) {
         console.log(err);
       }
-    }, 2000)
-  }, [])
+    })();
+  }, [rSidebar]);
+
+  async function _onCloseSidebar() {
+    setRightSidebar({
+      isOpen: false
+    })
+    await controls.start("hidden");
+  }
 
   return (
-    <Container
-      initial="hidden"
-      animate={controls}
-      variants={animation}
-      transition={{ type: 'timing' }}
-    >
+    <Container initial="hidden" animate={controls} variants={animation} transition={{ type: 'timing' }}>
       <h3>Basket</h3>
       <HLine space={10} />
       <Flex cls="scrollable">
@@ -177,7 +184,7 @@ const RightSidebar: React.FC<Props> = (props) => {
           <Button text="Order" color="black" onClick={() => false} />
           <span className="total-sum">Total: {calculateTotalSumOfProducts(fakeData)} $</span>
         </Flex>
-        <Button text="Continue shopping" full color="black" onClick={() => false} />
+        <Button text="Continue shopping" full color="black" onClick={_onCloseSidebar} />
       </Flex>
     </Container>
   );

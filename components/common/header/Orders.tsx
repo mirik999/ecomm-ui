@@ -1,17 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { useRecoilState } from 'recoil';
 import Flex from '../../layout/Flex';
+import { rightSidebar } from '../../../recoil/sidebar.atom';
 
 interface Props {}
 
 const Orders: React.FC<Props> = (props) => {
-  return <Container>
-    <Flex cls="gap" items="center">
-      <AiOutlineShoppingCart size={18} />
-      <span>Orders</span>
-    </Flex>
-  </Container>;
+  const [rSidebar, setRightSideBar] = useRecoilState(rightSidebar);
+
+  function _onToggleSidebar() {
+    setRightSideBar({
+      isOpen: !rSidebar.isOpen,
+    });
+  }
+
+  return (
+    <Container>
+      <Flex cls="gap" items="center" role="button" onClick={_onToggleSidebar}>
+        <AiOutlineShoppingCart size={18} />
+        <span>Orders</span>
+      </Flex>
+    </Container>
+  );
 };
 
 export default Orders;
@@ -27,7 +39,7 @@ const Container = styled.div`
       fill: ${({ theme }) => theme.colors.main};
     }
   }
- 
+
   span {
     display: block;
     font-weight: 500;
@@ -36,7 +48,7 @@ const Container = styled.div`
     white-space: nowrap;
     transition: all 0.3s ease;
   }
-  
+
   svg {
     path {
       transition: all 0.3s ease;

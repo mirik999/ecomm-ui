@@ -1,7 +1,9 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRecoilState } from 'recoil';
+import { motion, useAnimation } from 'framer-motion';
 //components
 import { HLine } from '../../styled';
 import Flex from '../../layout/Flex';
@@ -10,6 +12,8 @@ import visa from '../../../assets/images/visa.svg';
 import master from '../../../assets/images/master-card.svg';
 import stripe from '../../../assets/images/stripe.svg';
 import paypal from '../../../assets/images/paypal.svg';
+//atom
+import { leftSidebarAtom } from '../../../recoil/sidebar.atom';
 
 export const fakeCategories = [
   {
@@ -155,9 +159,28 @@ export const fakeCategories = [
   },
 ];
 
+const animation = {
+  visible: { x: 0 },
+  hidden: { x: -300 },
+};
+
 interface Props {}
 
 const LeftSidebar: React.FC<Props> = (props) => {
+  const controls = useAnimation();
+  const [lSidebar] = useRecoilState(leftSidebarAtom);
+
+  useEffect(() => {
+    (async function () {
+      try {
+        const sideBarState = lSidebar.isOpen ? 'visible' : 'hidden';
+        await controls.start(sideBarState);
+      } catch (err) {
+        console.log(err);
+      }
+    })();
+  }, [lSidebar]);
+
   const navList = useMemo(() => {
     let result: any = [];
     for (let i = 0; i < fakeCategories.length; i++) {
@@ -177,7 +200,7 @@ const LeftSidebar: React.FC<Props> = (props) => {
   }, []);
 
   return (
-    <Container>
+    <Container initial="hidden" animate={controls} variants={animation} transition={{ type: 'timing' }}>
       <Flex flex="column">
         <h3>Navigation</h3>
         <HLine space={10} />
@@ -243,7 +266,7 @@ const LeftSidebar: React.FC<Props> = (props) => {
 
 export default LeftSidebar;
 
-const Container = styled.div`
+const Container = styled(motion.div)`
   width: 256px;
   height: calc(100vh - 40px);
   background-color: ${({ theme }) => theme.colors.section};
