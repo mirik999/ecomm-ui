@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRecoilState } from 'recoil';
 import { motion, useAnimation } from 'framer-motion';
+import { AiOutlineArrowLeft } from 'react-icons/ai';
 //components
 import { HLine } from '../../styled';
 import Flex from '../../layout/Flex';
@@ -168,7 +169,7 @@ interface Props {}
 
 const LeftSidebar: React.FC<Props> = (props) => {
   const controls = useAnimation();
-  const [lSidebar] = useRecoilState(leftSidebarAtom);
+  const [lSidebar, setLeftSidebar] = useRecoilState(leftSidebarAtom);
 
   useEffect(() => {
     (async function () {
@@ -199,10 +200,22 @@ const LeftSidebar: React.FC<Props> = (props) => {
     return result;
   }, []);
 
+  async function _onCloseSidebar() {
+    setLeftSidebar({
+      isOpen: false,
+    });
+    await controls.start('hidden');
+  }
+
   return (
     <Container initial="hidden" animate={controls} variants={animation} transition={{ type: 'timing' }}>
-      <Flex flex="column">
+      <Flex cls="left-sidebar-header" justify="between">
         <h3>Navigation</h3>
+        <a className="arrow-icon" role="button" onClick={_onCloseSidebar}>
+          <AiOutlineArrowLeft size={18} />
+        </a>
+      </Flex>
+      <Flex flex="column">
         <HLine space={10} />
         <div className="scrollable">
           <List>
@@ -274,13 +287,28 @@ const Container = styled(motion.div)`
   position: fixed;
   top: 20px;
   left: 20px;
-  z-index: 2;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
   h4 {
     color: ${({ theme }) => theme.colors.secondaryTextColor};
+  }
+
+  .arrow-icon {
+    cursor: pointer;
+    transform: translateY(3px);
+  }
+  
+  .left-sidebar-header {
+    max-height: 23px;
+  }
+
+  @media (max-width: 580px) {
+    top: 10px;
+    left: 10px;
+    height: calc(100vh - 20px);
   }
 `;
 

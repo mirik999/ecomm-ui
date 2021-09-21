@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/react-slick": "^0.23.5",
     "axios": "^0.21.2",
+    "color.js": "^1.2.0",
     "framer-motion": "^4.1.17",
     "graphql": "^15.5.3",
     "graphql-request": "^3.5.0",
@@ -21,7 +23,8 @@
     "react-slick": "^0.28.1",
     "recoil": "^0.4.1",
     "slick-carousel": "^1.8.1",
-    "styled-components": "^5.3.1"
+    "styled-components": "^5.3.1",
+    "use-media": "^1.4.0"
   },
   "devDependencies": {
     "@types/react": "17.0.19",

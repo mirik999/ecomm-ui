@@ -2,6 +2,9 @@ import 'styled-components';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
+    dimensions: {
+      minusHeight: number;
+    };
     colors: {
       container: string;
       main: string;

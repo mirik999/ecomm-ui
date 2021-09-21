@@ -3,17 +3,31 @@ import styled from 'styled-components';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { useRecoilState } from 'recoil';
 import Flex from '../../layout/Flex';
-import { rightSidebar } from '../../../recoil/sidebar.atom';
+import { leftSidebarAtom, rightSidebar } from "../../../recoil/sidebar.atom";
+import useMedia from "use-media";
 
 interface Props {}
 
 const Orders: React.FC<Props> = (props) => {
+  const isMedium = useMedia({ maxWidth: 991 });
   const [rSidebar, setRightSideBar] = useRecoilState(rightSidebar);
+  const [lSidebar, setLeftSideBar] = useRecoilState(leftSidebarAtom);
 
   function _onToggleSidebar() {
-    setRightSideBar({
-      isOpen: !rSidebar.isOpen,
-    });
+    if (isMedium) {
+      setRightSideBar({
+        isOpen: !rSidebar.isOpen,
+      });
+      if (lSidebar.isOpen) {
+        setLeftSideBar({
+          isOpen: false,
+        });
+      }
+    } else {
+      setRightSideBar({
+        isOpen: !rSidebar.isOpen,
+      });
+    }
   }
 
   return (

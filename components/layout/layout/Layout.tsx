@@ -4,13 +4,15 @@ import Head from 'next/head';
 import { useRecoilState } from 'recoil';
 import { useQuery } from 'react-query';
 //components
-import Header from '../common/header/Header';
-import { getAllTranslations } from '../../graphql-requests/translation.gql';
-import { languageAtom, translationsAtom } from '../../recoil/translation.atom';
-import { ITranslationResponse } from '../../types/translations.type';
-import LeftSidebar from '../common/left-sidebar/LeftSidebar';
-import RightSidebar from '../common/right-sidebar/RightSidebar';
-import Footer from '../common/footer/Footer';
+import Header from '../../common/header/Header';
+import LeftSidebar from '../../common/left-sidebar/LeftSidebar';
+import RightSidebar from '../../common/right-sidebar/RightSidebar';
+import Footer from '../../common/footer/Footer';
+import Overlay from './Overlay';
+//rest
+import { getAllTranslations } from '../../../graphql-requests/translation.gql';
+import { ITranslationResponse } from '../../../types/translations.type';
+import { languageAtom, translationsAtom } from '../../../recoil/translation.atom';
 
 interface Props {
   children: React.ReactNode;
@@ -44,6 +46,7 @@ function Layout({ children, translationData }: Props) {
       <LeftSidebar />
       <RightSidebar />
       <Content>
+        <Overlay />
         <Header />
         <Main>{children}</Main>
         <Footer />
@@ -63,6 +66,10 @@ const Container = styled.div`
   height: 100vh;
   background-color: ${({ theme }) => theme.colors.container};
   padding: 20px;
+
+  @media (max-width: 580px) {
+    padding: 10px;
+  }
 `;
 
 const Content = styled.div`
@@ -75,5 +82,16 @@ const Main = styled.main`
   height: calc(100vh - 219px);
   margin: 0 auto;
   background-color: ${({ theme }) => theme.colors.section};
-`;
+  
+  @media (max-width: 1300px) {
+    height: calc(100vh - 278px);
+  }
 
+  @media (max-width: 850px) {
+    height: calc(100vh - 232px);
+  }
+
+  @media (max-width: 580px) {
+    height: calc(100vh - 231px);
+  }
+`;

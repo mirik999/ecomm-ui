@@ -48,4 +48,14 @@ const Container = styled.div`
     right: 10px;
     color: ${({ theme }) => theme.colors.secondaryTextColor};
   }
+  
+  @media (max-width: 580px) {
+    input {
+      height: 36px;
+    }
+
+    svg {
+      top: 10px;
+    }
+  }
 `;

@@ -1,6 +1,9 @@
 import { DefaultTheme } from 'styled-components';
 
 export const lightTheme: DefaultTheme = {
+  dimensions: {
+    minusHeight: 214,
+  },
   colors: {
     container: '#F1F1F1',
     main: '#FF8000',

@@ -40,6 +40,14 @@ p, ul, h1, h2, h3, h4, h5, h6, a {
   width: 100%;
 }
 
+del {
+  color: gray;
+}
+
+
+
+/* scroll */
+
 ::-webkit-scrollbar {
   width: 5px;
 }
@@ -56,13 +64,4 @@ p, ul, h1, h2, h3, h4, h5, h6, a {
   background: #DEDEDE;
   border-radius: 10px;
 
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #ededed;
-}
-
-del {
-  color: gray;
 }

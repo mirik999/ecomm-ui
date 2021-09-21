@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion, useAnimation } from 'framer-motion';
 import { useRecoilState } from 'recoil';
+import { AiOutlineArrowRight } from 'react-icons/ai';
 //components
 import { HLine, VLine } from '../../styled';
 import Button from '../buttons/Button';
@@ -132,14 +133,19 @@ const RightSidebar: React.FC<Props> = (props) => {
 
   async function _onCloseSidebar() {
     setRightSidebar({
-      isOpen: false
-    })
-    await controls.start("hidden");
+      isOpen: false,
+    });
+    await controls.start('hidden');
   }
 
   return (
     <Container initial="hidden" animate={controls} variants={animation} transition={{ type: 'timing' }}>
-      <h3>Basket</h3>
+      <Flex justify="between">
+        <h3>Basket</h3>
+        <a className="arrow-icon" role="button" onClick={_onCloseSidebar}>
+          <AiOutlineArrowRight size={18} />
+        </a>
+      </Flex>
       <HLine space={10} />
       <Flex cls="scrollable">
         <ul>
@@ -200,7 +206,7 @@ const Container = styled(motion.div)`
   position: fixed;
   top: 20px;
   right: 20px;
-  z-index: 2;
+  z-index: 3;
 
   .scrollable {
     max-height: 50vh;
@@ -215,6 +221,17 @@ const Container = styled(motion.div)`
     .total-sum {
       font-weight: 500;
     }
+  }
+  
+  .arrow-icon {
+    cursor: pointer;
+    transform: translateY(3px);
+  }
+
+  @media (max-width: 580px) {
+    top: 10px;
+    right: 10px;
+    height: calc(100vh - 20px);
   }
 `;
 

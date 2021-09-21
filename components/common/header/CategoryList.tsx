@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
-import { useRecoilState } from "recoil";
+import { useRecoilState } from 'recoil';
 import { fakeCategories } from '../left-sidebar/LeftSidebar';
+import { AiOutlineMenuUnfold } from 'react-icons/ai';
 //atom
-import { leftSidebarAtom } from "../../../recoil/sidebar.atom";
+import { leftSidebarAtom } from '../../../recoil/sidebar.atom';
 
 interface Props {}
 
@@ -20,13 +21,14 @@ const CategoryList: React.FC<Props> = (props) => {
   return (
     <Container role="navigation" aria-label="Product Navigation">
       <ul>
-        <li>
+        <li className="navigation-toggle-item">
           <a role="button" onClick={_onToggleSidebar}>
             <span>All Categories</span>
+            <AiOutlineMenuUnfold size={24} />
           </a>
         </li>
         {fakeCategories.map((cat, i) => (
-          <li key={i}>
+          <li className="navigation--item" key={i}>
             <Link href="/" as="/">
               <a>{cat.tabName}</a>
             </Link>
@@ -57,6 +59,32 @@ const Container = styled.nav`
         &:hover {
           color: ${({ theme }) => theme.colors.main};
         }
+      }
+    }
+
+    .navigation-toggle-item {
+      svg {
+        display: none;
+      }
+    }
+  }
+
+  @media (max-width: 850px) {
+    .navigation--item {
+      display: none;
+    }
+
+    .navigation-toggle-item {
+      span {
+        display: none;
+      }
+      
+      svg {
+        display: block !important;
+      }
+
+      a {
+        padding: 10px 10px 10px 0 !important;
       }
     }
   }
