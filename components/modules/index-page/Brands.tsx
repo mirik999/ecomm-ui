@@ -176,7 +176,7 @@ const Brands: React.FC<Props> = (props) => {
           <div key={i} className="brand-wrap">
             <Link href="/" as="/">
               <a>
-                <Image src={brand.imageUrl} width={102} height={52} />
+                <Image src={brand.imageUrl} alt={brand.name} width={102} height={52} />
               </a>
             </Link>
           </div>
@@ -193,9 +193,15 @@ const Container = styled.div`
   overflow: hidden;
 
   .brand-wrap {
-    border: ${({ theme }) => `1px solid ${theme.colors.border}`};
+    border: ${({ theme }) => `1px solid ${theme.colors.lightBorder}`};
     max-width: calc(100% - 5px);
     max-height: 100%;
+    transition: all 0.3s ease;
+    filter: grayscale(50%);
+
+    &:hover {
+      filter: grayscale(0%);
+    }
 
     a {
       display: flex;

@@ -10,6 +10,7 @@ export const lightTheme: DefaultTheme = {
     black: '#000000',
     white: '#FFFFFF',
     border: '#E6E6E6',
+    lightBorder: '#eeeeee',
     secondaryTextColor: '#929292',
     section: '#FFFFFF',
     red: '#F64673',

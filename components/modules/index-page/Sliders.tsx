@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import SingleCarousel from '../../common/SingleCarousel';
+import SingleCarousel from '../../common/carousel/SingleCarousel';
 import Flex from '../../layout/Flex';
 
 interface Props {}
