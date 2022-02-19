@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { memo, useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -8,6 +8,7 @@ import { AiOutlineArrowLeft } from 'react-icons/ai';
 //components
 import { HLine } from '../../styled';
 import Flex from '../../layout/Flex';
+import Text from '../text/Text';
 //assets
 import visa from '../../../assets/images/visa.svg';
 import master from '../../../assets/images/master-card.svg';
@@ -21,54 +22,63 @@ export const fakeCategories = [
     id: '1',
     name: 'Personal Computers',
     tabName: 'PC',
+    translation: 'personal_computers',
     subCategories: [
       {
         id: '11',
         parentId: '1',
         name: 'Monitor',
         tabName: 'Monitor',
+        translation: 'monitor',
       },
       {
         id: '12',
         parentId: '1',
         name: 'Graphic Card',
         tabName: 'Graphics',
+        translation: 'graphics_card',
       },
       {
         id: '13',
         parentId: '1',
         name: 'Motherboard',
         tabName: 'Motherboard',
+        translation: 'motherboard',
       },
       {
         id: '14',
         parentId: '1',
         name: 'Computer Memory',
         tabName: 'RAM',
+        translation: 'ram',
       },
       {
         id: '15',
         parentId: '1',
         name: 'Storage',
         tabName: 'Storage',
+        translation: 'storage',
       },
       {
         id: '16',
         parentId: '1',
         name: 'Power Supply',
         tabName: 'Power',
+        translation: 'power_supply',
       },
       {
         id: '17',
         parentId: '1',
         name: 'Central Processing Unit',
         tabName: 'CPU',
+        translation: 'cpu',
       },
       {
         id: '18',
         parentId: '1',
         name: 'Case',
         tabName: 'Case',
+        translation: 'case',
       },
     ],
   },
@@ -76,30 +86,35 @@ export const fakeCategories = [
     id: '2',
     name: 'Laptops',
     tabName: 'Laptops',
+    translation: 'laptops',
     subCategories: [
       {
         id: '21',
         parentId: '2',
         name: 'Gaming',
         tabName: 'Gaming',
+        translation: 'gaming',
       },
       {
         id: '22',
         parentId: '2',
         name: 'Office Work',
         tabName: 'Office',
+        translation: 'office_work',
       },
       {
         id: '23',
         parentId: '2',
         name: 'Ultrabook',
         tabName: 'Ultrabook',
+        translation: 'ultrabook',
       },
       {
         id: '24',
         parentId: '2',
         name: 'Netbook',
         tabName: 'Netbook',
+        translation: 'netbook',
       },
     ],
   },
@@ -107,42 +122,49 @@ export const fakeCategories = [
     id: '3',
     name: 'Smartphones & Tablets',
     tabName: 'Phones & Tablets',
+    translation: 'smartphones_tablets',
     subCategories: [
       {
         id: '31',
         parentId: '3',
         name: 'Apple',
         tabName: 'Apple',
+        translation: 'apple',
       },
       {
         id: '32',
         parentId: '3',
         name: 'Samsung',
         tabName: 'Samsung',
+        translation: 'samsung',
       },
       {
         id: '33',
         parentId: '3',
         name: 'Xiaomi',
         tabName: 'Xiaomi',
+        translation: 'xiaomi',
       },
       {
         id: '34',
         parentId: '3',
         name: 'Huawei',
         tabName: 'Huawei',
+        translation: 'huawei',
       },
       {
         id: '35',
         parentId: '3',
         name: 'OnePlus',
         tabName: 'OnePlus',
+        translation: 'oneplus',
       },
       {
         id: '36',
         parentId: '3',
         name: 'Realmi',
         tabName: 'Realmi',
+        translation: 'realmi',
       },
     ],
   },
@@ -150,12 +172,14 @@ export const fakeCategories = [
     id: '4',
     name: 'Accessories',
     tabName: 'Accessories',
+    translation: 'accessories',
     subCategories: [],
   },
   {
     id: '5',
     name: 'Gaming',
     tabName: 'Gaming',
+    translation: 'gaming',
     subCategories: [],
   },
 ];
@@ -167,7 +191,8 @@ const animation = {
 
 interface Props {}
 
-const LeftSidebar: React.FC<Props> = (props) => {
+// eslint-disable-next-line react/display-name
+const LeftSidebar: React.FC<Props> = memo((props) => {
   const controls = useAnimation();
   const [lSidebar, setLeftSidebar] = useRecoilState(leftSidebarAtom);
 
@@ -190,6 +215,7 @@ const LeftSidebar: React.FC<Props> = (props) => {
         parentId: null,
         name: fakeCategories[i].name,
         tabName: fakeCategories[i].tabName,
+        translation: fakeCategories[i]?.translation || '',
       });
       if (fakeCategories[i].subCategories) {
         for (let j = 0; j < fakeCategories[i].subCategories.length; j++) {
@@ -208,14 +234,19 @@ const LeftSidebar: React.FC<Props> = (props) => {
   }
 
   return (
-    <Container initial="hidden" animate={controls} variants={animation} transition={{ type: 'timing' }}>
+    <Container
+      initial={lSidebar.isOpen ? "visible" : "hidden"}
+      animate={controls}
+      variants={animation}
+      transition={{ type: 'timing' }}
+    >
       <Flex cls="left-sidebar-header" justify="between">
-        <h3>Navigation</h3>
+        <Text tag="h3" keyword="navigation" />
         <a className="arrow-icon" role="button" onClick={_onCloseSidebar}>
           <AiOutlineArrowLeft size={18} />
         </a>
       </Flex>
-      <Flex flex="column">
+      <Flex cls="nav-list" flex="column">
         <HLine space={10} />
         <div className="scrollable">
           <List>
@@ -224,7 +255,9 @@ const LeftSidebar: React.FC<Props> = (props) => {
                 return (
                   <Li key={i} header={item.parentId === null}>
                     <Link href={`/${item.id}`} as={`/${item.id}`}>
-                      <a>{item.name}</a>
+                      <a>
+                        {item.translation ? <Text tag="span" keyword={item.translation} /> : <span>{item.name}</span>}
+                      </a>
                     </Link>
                   </Li>
                 );
@@ -236,27 +269,37 @@ const LeftSidebar: React.FC<Props> = (props) => {
             <ul className="site-nav">
               <li>
                 <Link href="/" as="/">
-                  <a>Who We Are</a>
+                  <a>
+                    <Text tag="span" keyword="who_we_are" />
+                  </a>
                 </Link>
               </li>
               <li>
                 <Link href="/" as="/">
-                  <a>How We Work</a>
+                  <a>
+                    <Text tag="span" keyword="how_we_work" />
+                  </a>
                 </Link>
               </li>
               <li>
                 <Link href="/" as="/">
-                  <a>Get In Touch</a>
+                  <a>
+                    <Text tag="span" keyword="get_in_touch" />
+                  </a>
                 </Link>
               </li>
               <li>
                 <Link href="/" as="/">
-                  <a>FAQ</a>
+                  <a>
+                    <Text tag="span" keyword="faq" />
+                  </a>
                 </Link>
               </li>
               <li>
                 <Link href="/" as="/">
-                  <a>Terms & Conditions</a>
+                  <a>
+                    <Text tag="span" keyword="terms_conditions" />
+                  </a>
                 </Link>
               </li>
             </ul>
@@ -264,7 +307,7 @@ const LeftSidebar: React.FC<Props> = (props) => {
         </div>
       </Flex>
       <Flex flex="column" col="0">
-        <h4>Whe are accepting</h4>
+        <Text className="payments" tag="span" keyword="payment_methods" />
         <HLine space={10} />
         <Flex cls="gap">
           <Image src={visa} alt="Visa payment" width={38} height={24} />
@@ -275,7 +318,7 @@ const LeftSidebar: React.FC<Props> = (props) => {
       </Flex>
     </Container>
   );
-};
+});
 
 export default LeftSidebar;
 
@@ -288,11 +331,12 @@ const Container = styled(motion.div)`
   top: 20px;
   left: 20px;
   z-index: 3;
+  overflow: scroll;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
-  h4 {
+  .payments {
     color: ${({ theme }) => theme.colors.secondaryTextColor};
   }
 
@@ -300,9 +344,15 @@ const Container = styled(motion.div)`
     cursor: pointer;
     transform: translateY(3px);
   }
-  
+
   .left-sidebar-header {
     max-height: 23px;
+  }
+
+  .nav-list {
+    span {
+      text-transform: capitalize;
+    }
   }
 
   @media (max-width: 580px) {

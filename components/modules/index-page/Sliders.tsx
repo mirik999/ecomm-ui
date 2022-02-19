@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+//components
 import SingleCarousel from '../../common/carousel/SingleCarousel';
 import Flex from '../../layout/Flex';
 

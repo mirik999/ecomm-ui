@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
+import Text from '../text/Text';
 
 interface Props {}
 
@@ -10,27 +11,37 @@ const NavList: React.FC<Props> = (props) => {
       <ul>
         <li>
           <Link href="/" as="/">
-            <a>Who We Are</a>
+            <a>
+              <Text tag="span" keyword="who_we_are" />
+            </a>
           </Link>
         </li>
         <li>
           <Link href="/" as="/">
-            <a>How We Work</a>
+            <a>
+              <Text tag="span" keyword="how_we_work" />
+            </a>
           </Link>
         </li>
         <li>
           <Link href="/" as="/">
-            <a>Get In Touch</a>
+            <a>
+              <Text tag="span" keyword="get_in_touch" />
+            </a>
           </Link>
         </li>
         <li>
           <Link href="/" as="/">
-            <a>FAQ</a>
+            <a>
+              <Text tag="span" keyword="faq" />
+            </a>
           </Link>
         </li>
         <li>
           <Link href="/" as="/">
-            <a>Terms & Conditions</a>
+            <a>
+              <Text tag="span" keyword="terms_conditions" />
+            </a>
           </Link>
         </li>
       </ul>
@@ -52,6 +63,7 @@ const Container = styled.nav`
         font-size: 14px;
         white-space: nowrap;
         transition: all 0.3s ease;
+        text-transform: capitalize;
 
         &:hover {
           color: ${({ theme }) => theme.colors.main};

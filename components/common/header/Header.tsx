@@ -2,17 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useMedia } from 'use-media';
+import dynamic from 'next/dynamic';
 //assets
 import logo from '../../../assets/images/Logo.svg';
 //components
 import Flex from '../../layout/Flex';
 import SearchBar from '../searchbar/SearchBar';
 import NavList from './NavList';
-import Language from './Language';
 import Orders from './Orders';
-import Wishlist from './Wishlist';
+import AuthLink from './AuthLink';
 import CategoryList from './CategoryList';
-import { useMedia } from 'use-media';
+//to use document or window
+const Language = dynamic(() => import('./language/Language'), { ssr: false });
 
 function BottomSide() {
   return (
@@ -20,7 +22,7 @@ function BottomSide() {
       <Flex cls="buttons-wrap gap" justify="end" items="center">
         <Language />
         <Orders />
-        <Wishlist />
+        <AuthLink />
       </Flex>
       <CategoryList />
     </Flex>

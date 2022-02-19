@@ -1,15 +1,41 @@
-export interface ITranslations {
-  keyword: string;
-  translation: {
-    AZ: string;
-    EN: string;
-    TR: string;
-  };
-}
-
-export interface ITranslationResponse {
-  getTranslations: {
-    count: number;
-    payload: ITranslations[];
-  };
-}
+export type ITranslationMessages =
+  | 'search_product'
+  | 'realmi'
+  | 'oneplus'
+  | 'huawei'
+  | 'xiaomi'
+  | 'samsung'
+  | 'apple'
+  | 'netbook'
+  | 'ultrabook'
+  | 'office_work'
+  | 'case'
+  | 'cpu'
+  | 'power_supply'
+  | 'storage'
+  | 'ram'
+  | 'motherboard'
+  | 'graphics_card'
+  | 'monitor'
+  | 'sign_in'
+  | 'my_basket'
+  | 'language'
+  | 'payment_methods'
+  | 'total'
+  | 'price'
+  | 'quantity'
+  | 'remove'
+  | 'continue_shopping'
+  | 'order'
+  | 'gaming'
+  | 'accessories'
+  | 'smartphones_tablets'
+  | 'laptops'
+  | 'personal_computers'
+  | 'basket'
+  | 'navigation'
+  | 'who_we_are'
+  | 'get_in_touch'
+  | 'faq'
+  | 'how_we_work'
+  | 'terms_conditions';

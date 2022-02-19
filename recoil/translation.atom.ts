@@ -1,16 +1,15 @@
 import { atom } from 'recoil';
 import { localStorageEffect } from '../utils/recoil-persist.utils';
-import { ITranslations } from '../types/translations.type';
 
-export const translationsAtom = atom<{ messages: ITranslations[] }>({
+export const translationsAtom = atom<{ messages: Record<string, string> }>({
   key: 'translations',
   default: {
-    messages: [],
+    messages: {},
   },
   effects_UNSTABLE: [localStorageEffect('translations')],
 });
 
-export const languageAtom = atom<{ language: 'EN' | 'RU' | 'TR' }>({
+export const languageAtom = atom<{ language: 'EN' | 'RU' | 'AZ' }>({
   key: 'language',
   default: {
     language: 'EN',

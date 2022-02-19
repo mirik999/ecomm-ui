@@ -2,18 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  text: string;
+  children: React.ReactNode | string;
   onMinus: () => void;
   onPlus: () => void;
 }
 
-const ButtonWithPlusMinus: React.FC<Props> = ({ text, onMinus, onPlus }) => {
+const ButtonWithPlusMinus: React.FC<Props> = ({ children, onMinus, onPlus }) => {
   return (
     <Container>
       <button type="button" onClick={onPlus}>
         +
       </button>
-      <span>{text}</span>
+      {children}
       <button type="button" onClick={onMinus}>
         -
       </button>
@@ -33,6 +33,7 @@ const Container = styled.div`
   border: ${({ theme }) => `1px solid ${theme.colors.main}`};
 
   button {
+    flex: 1;
     align-self: stretch;
     justify-content: center;
     background-color: ${({ theme }) => theme.colors.white};

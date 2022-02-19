@@ -10,6 +10,7 @@ import { HLine, VLine } from '../../styled';
 import Button from '../buttons/Button';
 import Flex from '../../layout/Flex';
 import ButtonWithPlusMinus from '../buttons/ButtonWithPlusMinus';
+import Text from '../text/Text';
 //utils
 import { calculateSale, calculateTotalSumOfProducts } from '../../../utils/calculation.utils';
 //atom
@@ -139,9 +140,14 @@ const RightSidebar: React.FC<Props> = (props) => {
   }
 
   return (
-    <Container initial="hidden" animate={controls} variants={animation} transition={{ type: 'timing' }}>
+    <Container
+      initial={rSidebar.isOpen ? "visible" : "hidden"}
+      animate={controls}
+      variants={animation}
+      transition={{ type: 'timing' }}
+    >
       <Flex justify="between">
-        <h3>Basket</h3>
+        <Text tag="h3" keyword="basket" />
         <a className="arrow-icon" role="button" onClick={_onCloseSidebar}>
           <AiOutlineArrowRight size={18} />
         </a>
@@ -160,11 +166,11 @@ const RightSidebar: React.FC<Props> = (props) => {
                   <span>{product.name}</span>
                   <HLine space={5} />
                   <Flex cls="gap0" justify="between">
-                    <span>Count</span>
+                    <Text tag="span" keyword="quantity" />
                     <span>1</span>
                   </Flex>
                   <Flex justify="between" items="center">
-                    <span>Price</span>
+                    <Text tag="span" keyword="price" />
                     {product.sale ? (
                       <Flex cls="gap0" justify="end">
                         <del>{product.price} $</del>
@@ -177,8 +183,12 @@ const RightSidebar: React.FC<Props> = (props) => {
                 </Flex>
               </Flex>
               <Flex cls="product-hover gap0" flex="column" justify="center">
-                <Button type="button" text="Remove" onClick={() => false} />
-                <ButtonWithPlusMinus text="Count" onPlus={() => false} onMinus={() => false} />
+                <Button type="button" onClick={() => false}>
+                  <Text tag="span" keyword="remove" />
+                </Button>
+                <ButtonWithPlusMinus onPlus={() => false} onMinus={() => false}>
+                  <Text tag="span" keyword="quantity" />
+                </ButtonWithPlusMinus>
               </Flex>
             </Li>
           ))}
@@ -187,10 +197,16 @@ const RightSidebar: React.FC<Props> = (props) => {
       <HLine space={10} />
       <Flex cls="gap action-buttons">
         <Flex justify="between" items="center">
-          <Button text="Order" color="black" onClick={() => false} />
-          <span className="total-sum">Total: {calculateTotalSumOfProducts(fakeData)} $</span>
+          <Button color="black" onClick={() => false}>
+            <Text tag="span" keyword="order" />
+          </Button>
+          <span className="total-sum">
+            <Text tag="span" keyword="total" />: {calculateTotalSumOfProducts(fakeData)} $
+          </span>
         </Flex>
-        <Button text="Continue shopping" full color="black" onClick={_onCloseSidebar} />
+        <Button full color="black" onClick={_onCloseSidebar}>
+          <Text tag="span" keyword="continue_shopping" />
+        </Button>
       </Flex>
     </Container>
   );
@@ -218,11 +234,12 @@ const Container = styled(motion.div)`
   }
 
   .action-buttons {
+    font-size: 14px;
     .total-sum {
       font-weight: 500;
     }
   }
-  
+
   .arrow-icon {
     cursor: pointer;
     transform: translateY(3px);
@@ -282,7 +299,7 @@ const Li = styled.li`
 
     & > div,
     & > button {
-      width: 102px;
+      width: 142px;
     }
   }
 `;

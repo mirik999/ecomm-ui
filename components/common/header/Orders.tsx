@@ -2,9 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { useRecoilState } from 'recoil';
+import useMedia from 'use-media';
+import Text from '../text/Text';
 import Flex from '../../layout/Flex';
-import { leftSidebarAtom, rightSidebar } from "../../../recoil/sidebar.atom";
-import useMedia from "use-media";
+import { leftSidebarAtom, rightSidebar } from '../../../recoil/sidebar.atom';
 
 interface Props {}
 
@@ -34,7 +35,7 @@ const Orders: React.FC<Props> = (props) => {
     <Container>
       <Flex cls="gap" items="center" role="button" onClick={_onToggleSidebar}>
         <AiOutlineShoppingCart size={18} />
-        <span>Orders</span>
+        <Text tag="span" keyword="my_basket" />
       </Flex>
     </Container>
   );

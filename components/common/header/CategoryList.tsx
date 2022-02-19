@@ -23,17 +23,20 @@ const CategoryList: React.FC<Props> = (props) => {
       <ul>
         <li className="navigation-toggle-item">
           <a role="button" onClick={_onToggleSidebar}>
+            <AiOutlineMenuUnfold size={18} className="menu-icon-wide" />
             <span>All Categories</span>
-            <AiOutlineMenuUnfold size={24} />
+            <AiOutlineMenuUnfold size={24} className="menu-icon" />
           </a>
         </li>
-        {fakeCategories.map((cat, i) => (
-          <li className="navigation--item" key={i}>
-            <Link href="/" as="/">
-              <a>{cat.tabName}</a>
-            </Link>
-          </li>
-        ))}
+        {fakeCategories.map((cat, i) => {
+          return (
+            <li className="navigation--item" key={i}>
+              <Link href="/" as="/">
+                <a>{cat.tabName}</a>
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </Container>
   );
@@ -48,13 +51,15 @@ const Container = styled.nav`
     gap: 10px;
     li {
       a {
-        display: block;
+        display: flex;
+        align-items: center;
         font-weight: 500;
         padding: 10px 0 10px 10px;
         font-size: 14px;
         white-space: nowrap;
         transition: all 0.3s ease;
         cursor: pointer;
+        height: 37px;
 
         &:hover {
           color: ${({ theme }) => theme.colors.main};
@@ -63,7 +68,11 @@ const Container = styled.nav`
     }
 
     .navigation-toggle-item {
-      svg {
+      .menu-icon-wide {
+        transform: translateY(-1px);
+        margin-right: 3px;
+      }
+      .menu-icon {
         display: none;
       }
     }
@@ -78,8 +87,11 @@ const Container = styled.nav`
       span {
         display: none;
       }
-      
-      svg {
+
+      .menu-icon-wide {
+        display: none;
+      }
+      .menu-icon {
         display: block !important;
       }
 

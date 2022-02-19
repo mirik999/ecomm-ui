@@ -54,12 +54,12 @@ const Container = styled.div<{ vertical: boolean }>`
   width: calc(50% - 5px);
   height: 30vw;
   min-height: 184px;
-  max-height: 330px;
+  max-height: 324px;
   overflow: hidden;
 
   .slick-slide {
     height: auto !important;
-    border: 1px solid white;
+    border: ${({ theme }) => `1px solid ${theme.colors.white}`};
   }
 
   & > div {
@@ -73,8 +73,8 @@ const Container = styled.div<{ vertical: boolean }>`
       padding: 10px 0;
 
       ${({ vertical }) => `
-        top: ${vertical ? 0 : 'auto'};
-        bottom: ${vertical ? 'auto' : 0};
+        top: ${vertical ? 0 : 0};
+        bottom: ${vertical ? 'auto' : 'auto'};
         right: ${vertical ? 0 : 'auto'};
         left: ${vertical ? 'auto' : 0};
         width: ${vertical ? '48px' : '100%'};
@@ -129,7 +129,7 @@ const SliderImage = styled(Image)`
   object-position: center;
   height: 30vw;
   min-height: 184px;
-  max-height: 330px;
+  max-height: 324px;
 
   @media (max-width: 600px) {
     width: 100%;

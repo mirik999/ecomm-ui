@@ -2,16 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  text: string;
+  children: React.ReactNode | string;
   full?: boolean;
   color?: string;
   [key: string]: any;
 }
 
-const Button: React.FC<Props> = ({ text, full, color = 'main', props }) => {
+const Button: React.FC<Props> = ({ children, full, color = 'main', props }) => {
   return (
     <Container {...props} full={full} appearance={color}>
-      <span>{text}</span>
+      {children}
     </Container>
   );
 };

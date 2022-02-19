@@ -1,20 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
-import { AiOutlineHeart } from 'react-icons/ai';
+import Link from 'next/link';
+//components
 import Flex from '../../layout/Flex';
+import Text from "../text/Text";
 
 interface Props {}
 
-const Wishlist: React.FC<Props> = (props) => {
+const AuthLink: React.FC<Props> = (props) => {
   return <Container>
     <Flex cls="gap" items="center">
-      <AiOutlineHeart size={18} />
-      <span>Wishlist</span>
+      <Link href="/" as="/">
+        <a>
+          <Text tag="span" keyword="sign_in" />
+        </a>
+      </Link>
     </Flex>
     </Container>;
 };
 
-export default Wishlist;
+export default AuthLink;
 
 const Container = styled.div`
   cursor: pointer;
@@ -28,7 +33,7 @@ const Container = styled.div`
     }
   }
 
-  span {
+  a {
     display: block;
     font-weight: 500;
     padding: 10px 0;

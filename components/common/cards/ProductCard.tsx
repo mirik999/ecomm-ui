@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Rate from 'rc-rate';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaHeart, FaShoppingCart } from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
 import { HLine } from '../../styled';
 import 'rc-rate/assets/index.css';
 import Flex from '../../layout/Flex';
@@ -44,14 +44,20 @@ const ProductCard: React.FC<Props> = ({ product }) => {
         )}
       </Flex>
       <div className="product-image">
-        <div className="product-image-box">
+        <Flex cls="product-image-box" justify="center">
           <Image src={product.cover.src} alt={product.name} width={210} height={140} />
-        </div>
+        </Flex>
       </div>
       <HLine space={10} light />
       <Flex cls="gap0 product-body" flex="column">
         <Flex justify="center">
-          <span className="product-name">{product.name}</span>
+          <Link
+            href={`/product-details/[id]`}
+            as={`/product-details/${product.name}`}
+            //.replaceAll(" ", "-")
+          >
+            <a className="product-name">{product.name}</a>
+          </Link>
         </Flex>
         <Flex justify="center">
           {product.sale ? (
@@ -68,13 +74,11 @@ const ProductCard: React.FC<Props> = ({ product }) => {
         </Flex>
       </Flex>
       <HLine space={10} light />
-      <Flex cls="product-footer" justify="between" col="0">
+      <Flex cls="product-footer" justify="between" items="center" col="0">
         <a href={`https://google.com/search?q=${product.name}`} target="_blank" rel="noreferrer">
-          Google
+          <FcGoogle size={20} />
         </a>
-        <span role="button">
-          Add To Cart
-        </span>
+        <span role="button">Add To Cart</span>
       </Flex>
     </Container>
   );
@@ -86,13 +90,19 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  border: 1px solid #f4f4f4;
+  border: ${({ theme }) => `1px solid ${theme.colors.lightBorder}`};
+  min-width: 253.5px;
   width: 100%;
-  max-width: 210px;
-  height: 300px;
+  height: 330px;
   padding: 10px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
+  }
 
   .product-image {
+    background-color: ${({ theme }) => theme.colors.section};
     height: 45%;
 
     .product-image-box {
@@ -106,7 +116,6 @@ const Container = styled.div`
     flex: 1;
 
     .product-name {
-      color: gray;
       font-weight: bold;
       font-size: 14px;
       text-align: center;
@@ -118,17 +127,23 @@ const Container = styled.div`
     }
 
     .product-price-old {
-      color: gray;
+      color: ${({ theme }) => theme.colors.secondaryTextColor};
       font-weight: bold;
       font-size: 14px;
     }
   }
 
   .product-footer {
-    span, a {
+    span,
+    a {
       font-weight: bold;
       font-size: 14px;
       cursor: pointer;
+      height: 20px;
+    }
+
+    span {
+      height: 14px;
     }
   }
 
@@ -159,7 +174,6 @@ const Container = styled.div`
         margin-right: 10px;
         font-size: 12px;
         font-weight: bold;
-        color: black;
         text-transform: uppercase;
       }
     }

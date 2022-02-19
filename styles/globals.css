@@ -50,12 +50,14 @@ del {
 
 ::-webkit-scrollbar {
   width: 5px;
+  position: absolute;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
   background: transparent;
   border-radius: 10px;
+  position: absolute;
 
 }
 
@@ -63,5 +65,6 @@ del {
 ::-webkit-scrollbar-thumb {
   background: #DEDEDE;
   border-radius: 10px;
+  position: absolute;
 
 }
